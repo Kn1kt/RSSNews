@@ -14,14 +14,11 @@ class DetailViewController: UIViewController {
   private let news: NewsProtocol
   private lazy var textView: UITextView = {
     let textView = UITextView()
-//    textView.textColor = .label
-//    textView.font = .preferredFont(forTextStyle: .body)
     textView.dataDetectorTypes = UIDataDetectorTypes([.link])
     
     textView.isEditable = false
     textView.alwaysBounceVertical = true
     textView.textContainerInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-    textView.translatesAutoresizingMaskIntoConstraints = false
     
     return textView
   }()
@@ -60,6 +57,8 @@ class DetailViewController: UIViewController {
 extension DetailViewController {
   
   private func setupLayouts() {
+    textView.translatesAutoresizingMaskIntoConstraints = false
+
     view.addSubview(textView)
     
     NSLayoutConstraint.activate([

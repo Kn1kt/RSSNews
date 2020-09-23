@@ -39,12 +39,14 @@ extension FeedTableViewCell {
     contentView.addSubview(titleLabel)
     contentView.addSubview(dateLabel)
     
-    backgroundColor = .secondarySystemGroupedBackground
+    backgroundColor = .systemBackground
     selectedBackgroundView = UIView()
     selectedBackgroundView?.backgroundColor = UIColor.systemGray.withAlphaComponent(0.4)
     clipsToBounds = true
     
     separatorInset = UIEdgeInsets(top: 0, left: 30, bottom: 0, right: 10)
+    
+    accessoryType = .disclosureIndicator
     
     readIndicatorView.image = UIImage(systemName: "circle.fill")
     readIndicatorView.contentMode = .scaleAspectFill
@@ -66,7 +68,7 @@ extension FeedTableViewCell {
     let spacing = CGFloat(10)
     NSLayoutConstraint.activate([
       readIndicatorView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: spacing),
-      readIndicatorView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: 0),
+      readIndicatorView.centerYAnchor.constraint(equalTo: dateLabel.centerYAnchor, constant: 0),
       readIndicatorView.heightAnchor.constraint(equalTo: readIndicatorView.widthAnchor, multiplier: 1.0),
       readIndicatorView.widthAnchor.constraint(equalToConstant: 10),
       
@@ -76,7 +78,7 @@ extension FeedTableViewCell {
       
       dateLabel.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: spacing),
       dateLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -spacing),
-      dateLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: spacing),
+      dateLabel.firstBaselineAnchor.constraint(equalTo: titleLabel.firstBaselineAnchor),
       dateLabel.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -spacing),
     ])
   }

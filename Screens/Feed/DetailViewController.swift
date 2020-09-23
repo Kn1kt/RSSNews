@@ -14,8 +14,8 @@ class DetailViewController: UIViewController {
   private let news: NewsProtocol
   private lazy var textView: UITextView = {
     let textView = UITextView()
-    textView.textColor = .label
-    textView.font = .preferredFont(forTextStyle: .subheadline)
+//    textView.textColor = .label
+//    textView.font = .preferredFont(forTextStyle: .body)
     textView.dataDetectorTypes = UIDataDetectorTypes([.link])
     
     textView.isEditable = false
@@ -48,15 +48,15 @@ class DetailViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    navigationItem.largeTitleDisplayMode = .always
+    navigationItem.largeTitleDisplayMode = .never
     navigationItem.title = news.title
     
     setupLayouts()
-    
-    textView.text = news.content + "\n\n\(dateFormatter.string(from: news.publishDate))\n\(news.link)"
+    reflowTextAttributes()
   }
 }
 
+  // MARK: - Setup Layouts
 extension DetailViewController {
   
   private func setupLayouts() {
@@ -68,5 +68,37 @@ extension DetailViewController {
       textView.topAnchor.constraint(equalTo: view.topAnchor),
       textView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
     ])
+  }
+  
+  override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    reflowTextAttributes()
+  }
+}
+
+// MARK: - Update TextView
+extension DetailViewController {
+  
+  private func reflowTextAttributes() {
+    let rawText = news.title + "\n\n" + news.content + "\n\n\(dateFormatter.string(from: news.publishDate))\n\(news.link)"
+    
+    let attributedText = NSMutableAttributedString(string: rawText)
+    let text = rawText as NSString
+    
+    let entireRange = NSRange(location: 0, length: attributedText.length)
+    let boldRange = text.range(of: news.title)
+    
+    let boldFontDescriptor = UIFont
+      .preferredFont(forTextStyle: .title3)
+      .fontDescriptor
+      .withSymbolicTraits(.traitBold) ?? UIFont.preferredFont(forTextStyle: .title3).fontDescriptor
+    
+    let boldFont = UIFont(descriptor: boldFontDescriptor, size: 0)
+    let font = UIFont.preferredFont(forTextStyle: .body)
+    
+    attributedText.addAttribute(.font, value: font, range: entireRange)
+    attributedText.addAttribute(.font, value: boldFont, range: boldRange)
+    
+    textView.attributedText = attributedText
+    textView.textColor = .label
   }
 }

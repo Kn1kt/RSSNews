@@ -72,10 +72,10 @@ extension ViewController {
 extension ViewController {
   
   private func configureTableView() {
-    tableView = UITableView(frame: .zero, style: .insetGrouped)
+    tableView = UITableView(frame: .zero, style: .plain)
     
     tableView.translatesAutoresizingMaskIntoConstraints = false
-    tableView.backgroundColor = .systemGroupedBackground
+    tableView.backgroundColor = .systemBackground
     tableView.alwaysBounceVertical = true
     view.addSubview(tableView)
     

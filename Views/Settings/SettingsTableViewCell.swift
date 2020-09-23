@@ -41,7 +41,7 @@ extension SettingsTableViewCell {
     selectedBackgroundView?.backgroundColor = UIColor.systemGray.withAlphaComponent(0.4)
     clipsToBounds = true
     
-    separatorInset = UIEdgeInsets(top: 0, left: 30, bottom: 0, right: 0)
+    separatorInset = UIEdgeInsets(top: 0, left: 30, bottom: 0, right: 10)
     
     isActiveIndicatorView.image = UIImage(systemName: "circle.fill")
     isActiveIndicatorView.contentMode = .scaleAspectFill

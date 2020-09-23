@@ -62,9 +62,9 @@ extension ViewController {
         self.tableView.refreshControl?.endRefreshing()
       }
     })
-//    DispatchQueue.main.async {
-//      self.tableView.refreshControl?.endRefreshing()
-//    }
+    //    DispatchQueue.main.async {
+    //      self.tableView.refreshControl?.endRefreshing()
+    //    }
   }
 }
 
@@ -162,7 +162,36 @@ extension ViewController: UITableViewDelegate {
 extension ViewController {
   
   @objc func showSources() {
-    let vc = SettingsViewController()
+    let pc = RSSPointCreator()
+    
+    let points: [RSSPointCellData]
+    if let rssPoints = UserDefaults.standard.object(forKey: SettingsModelController.usersDefaultsKey) as? [String : Bool] {
+      points = rssPoints.compactMap { link, isActive in
+        if let url = URL(string: link) {
+          return RSSPointCellData(url: url, isActive: isActive)
+        }
+
+        return nil
+      }
+      
+    } else {
+      let defaultSources = [
+        "https://www.finam.ru/net/analysis/conews/rsspoint" : true,
+        "https://www.banki.ru/xml/news.rss" : true,
+      ]
+      UserDefaults.standard.set(defaultSources, forKey: SettingsModelController.usersDefaultsKey)
+
+      points = defaultSources.compactMap { link, isActive in
+        if let url = URL(string: link) {
+          return RSSPointCellData(url: url, isActive: isActive)
+        }
+
+        return nil
+      }
+    }
+    
+    let m = SettingsModelController(rssPoints: points)
+    let vc = SettingsViewController(rssPointCreator: pc, model: m)
     
     show(vc, sender: self)
   }

@@ -12,4 +12,6 @@ protocol RSSPointProtocol {
   var url: URL { get }
   
   var isActive: Bool { get set }
+  
+  init(url: URL, isActive: Bool)
 }

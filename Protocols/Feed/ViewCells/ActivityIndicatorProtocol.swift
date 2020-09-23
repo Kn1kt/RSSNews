@@ -13,3 +13,12 @@ protocol ActivityIndicatorProtocol {
   
   func toggleIndicator()
 }
+
+extension ActivityIndicatorProtocol {
+  
+  func setIndicator(_ isOn: Bool) {
+    if isOn != self.isOn {
+      toggleIndicator()
+    }
+  }
+}

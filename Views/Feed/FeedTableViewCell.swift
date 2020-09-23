@@ -27,7 +27,7 @@ class FeedTableViewCell: UITableViewCell {
   
 }
 
-  // MARK: - Layouts
+// MARK: - Layouts
 extension FeedTableViewCell {
   
   private func setupLayouts() {
@@ -90,7 +90,7 @@ extension FeedTableViewCell {
   }
 }
 
-  // MARK: - Read Indicator Protocol
+// MARK: - Read Indicator Protocol
 extension FeedTableViewCell: ActivityIndicatorProtocol {
   
   var isOn: Bool {

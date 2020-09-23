@@ -15,6 +15,10 @@
 		F380220B251AA72E00AA24EC /* RSSPointProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F380220A251AA72E00AA24EC /* RSSPointProtocol.swift */; };
 		F3802215251AA7B100AA24EC /* RSSPointCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3802214251AA7B100AA24EC /* RSSPointCellData.swift */; };
 		F380221E251AA91200AA24EC /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F380221D251AA91200AA24EC /* SettingsTableViewCell.swift */; };
+		F3802227251B8E3000AA24EC /* RSSPointCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3802226251B8E3000AA24EC /* RSSPointCreator.swift */; };
+		F380222C251B8E4D00AA24EC /* RSSPointCreatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F380222B251B8E4D00AA24EC /* RSSPointCreatorProtocol.swift */; };
+		F3802231251BAF9800AA24EC /* SettingsModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3802230251BAF9800AA24EC /* SettingsModelController.swift */; };
+		F3802236251BAFEB00AA24EC /* SettingsModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3802235251BAFEB00AA24EC /* SettingsModelProtocol.swift */; };
 		F3CB027A251A24A200505DFE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3CB0279251A24A200505DFE /* AppDelegate.swift */; };
 		F3CB027C251A24A200505DFE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3CB027B251A24A200505DFE /* SceneDelegate.swift */; };
 		F3CB027E251A24A200505DFE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3CB027D251A24A200505DFE /* ViewController.swift */; };
@@ -58,6 +62,10 @@
 		F380220A251AA72E00AA24EC /* RSSPointProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSPointProtocol.swift; sourceTree = "<group>"; };
 		F3802214251AA7B100AA24EC /* RSSPointCellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSPointCellData.swift; sourceTree = "<group>"; };
 		F380221D251AA91200AA24EC /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
+		F3802226251B8E3000AA24EC /* RSSPointCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSPointCreator.swift; sourceTree = "<group>"; };
+		F380222B251B8E4D00AA24EC /* RSSPointCreatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSPointCreatorProtocol.swift; sourceTree = "<group>"; };
+		F3802230251BAF9800AA24EC /* SettingsModelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModelController.swift; sourceTree = "<group>"; };
+		F3802235251BAFEB00AA24EC /* SettingsModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModelProtocol.swift; sourceTree = "<group>"; };
 		F3CB0276251A24A200505DFE /* RSSNews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RSSNews.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3CB0279251A24A200505DFE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F3CB027B251A24A200505DFE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -118,6 +126,8 @@
 			isa = PBXGroup;
 			children = (
 				F38021F8251A9AD800AA24EC /* SettingsViewController.swift */,
+				F3802226251B8E3000AA24EC /* RSSPointCreator.swift */,
+				F3802230251BAF9800AA24EC /* SettingsModelController.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -137,6 +147,8 @@
 			isa = PBXGroup;
 			children = (
 				F380220A251AA72E00AA24EC /* RSSPointProtocol.swift */,
+				F380222B251B8E4D00AA24EC /* RSSPointCreatorProtocol.swift */,
+				F3802235251BAFEB00AA24EC /* SettingsModelProtocol.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -445,7 +457,9 @@
 				F38021DB251A854300AA24EC /* ActivityIndicatorProtocol.swift in Sources */,
 				F38021E3251A8B7E00AA24EC /* DetailViewController.swift in Sources */,
 				F3CB02E9251A328A00505DFE /* NewsCellCategoryData.swift in Sources */,
+				F3802236251BAFEB00AA24EC /* SettingsModelProtocol.swift in Sources */,
 				F380220B251AA72E00AA24EC /* RSSPointProtocol.swift in Sources */,
+				F3802231251BAF9800AA24EC /* SettingsModelController.swift in Sources */,
 				F3CB027E251A24A200505DFE /* ViewController.swift in Sources */,
 				F3CB027A251A24A200505DFE /* AppDelegate.swift in Sources */,
 				F3CB027C251A24A200505DFE /* SceneDelegate.swift in Sources */,
@@ -453,7 +467,9 @@
 				F3CB02CB251A2B8100505DFE /* NewsCellProtocol.swift in Sources */,
 				F3802215251AA7B100AA24EC /* RSSPointCellData.swift in Sources */,
 				F3CB02D3251A2B9B00505DFE /* NewsCellCategoryProtocol.swift in Sources */,
+				F3802227251B8E3000AA24EC /* RSSPointCreator.swift in Sources */,
 				F38021EB251A907500AA24EC /* NewsData.swift in Sources */,
+				F380222C251B8E4D00AA24EC /* RSSPointCreatorProtocol.swift in Sources */,
 				F3CB02BA251A281900505DFE /* NewsProtocol.swift in Sources */,
 				F38021F3251A908600AA24EC /* NewsCategoryData.swift in Sources */,
 				F3FA7E77251A3CB000556AC7 /* FeedTableViewCell.swift in Sources */,

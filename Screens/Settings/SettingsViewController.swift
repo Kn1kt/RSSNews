@@ -12,7 +12,21 @@ class SettingsViewController: UIViewController {
   typealias Cell = RSSPointProtocol
   typealias ViewCell = SettingsTableViewCell
   
+  private let rssPointCreator: RSSPointCreatorProtocol
+  private var model: SettingsModelProtocol
+  
   private var tableView: UITableView! = nil
+  
+  init(rssPointCreator: RSSPointCreatorProtocol, model: SettingsModelProtocol) {
+    self.rssPointCreator = rssPointCreator
+    self.model = model
+    
+    super.init(nibName: nil, bundle: nil)
+  }
+  
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -21,14 +35,14 @@ class SettingsViewController: UIViewController {
     navigationItem.title = "Sources"
     navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
                                                         target: self,
-                                                        action: nil)
+                                                        action: #selector(createRSSPoint))
     
     configureTableView()
   }
   
 }
 
-  // MARK: Configure Collection View
+// MARK: Configure Collection View
 extension SettingsViewController {
   
   private func configureTableView() {
@@ -53,31 +67,27 @@ extension SettingsViewController {
                        forCellReuseIdentifier: ViewCell.reuseIdentifier)
   }
 }
-  
-  // MARK: Table View Data Source
+
+// MARK: Table View Data Source
 extension SettingsViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    2
+    model.rssPoints.count
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     guard let cell = tableView.dequeueReusableCell(withIdentifier: ViewCell.reuseIdentifier, for: indexPath) as? ViewCell else {
       fatalError("Can't create new cell")
     }
-    
-    switch indexPath.row {
-    case 0:
-      cell.titleLabel.text = "https://www.finam.ru/net/analysis/conews/rsspoint"
-    default:
-      cell.titleLabel.text = "https://www.banki.ru/xml/news.rss"
-    }
+    let cellData = model.rssPoints[indexPath.row]
+    cell.titleLabel.text = cellData.url.absoluteString
+    cell.setIndicator(cellData.isActive)
     
     return cell
   }
   
-  
 }
 
+// MARK: - Table View Delegate
 extension SettingsViewController: UITableViewDelegate {
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -86,7 +96,23 @@ extension SettingsViewController: UITableViewDelegate {
     }
     
     cell.toggleIndicator()
+    model.setIsActive(cell.isOn, for: indexPath.row)
     
     tableView.deselectRow(at: indexPath, animated: true)
+  }
+}
+
+// MARK: - Create New RSS Point
+extension SettingsViewController {
+  
+  @objc func createRSSPoint() {
+    rssPointCreator.getRSSPoint(for: self, completionHandler: { [weak self] rssPoint in
+      guard let self = self,
+            let rssPoint = rssPoint else { return }
+      
+        let indexPath = IndexPath(row: self.model.rssPoints.count, section: 0)
+        self.model.add(rssPoint)
+        self.tableView.insertRows(at: [indexPath], with: .automatic)
+    })
   }
 }

@@ -53,12 +53,12 @@ class DetailViewController: UIViewController {
   }
 }
 
-  // MARK: - Setup Layouts
+// MARK: - Setup Layouts
 extension DetailViewController {
   
   private func setupLayouts() {
     textView.translatesAutoresizingMaskIntoConstraints = false
-
+    
     view.addSubview(textView)
     
     NSLayoutConstraint.activate([

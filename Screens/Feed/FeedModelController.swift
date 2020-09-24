@@ -7,26 +7,28 @@
 
 import Foundation
 
-class FeedModelController<C: NewsCellCategoryProtocol, O: NewsObserverProtocol> where O.Category == C {
-  
+class FeedModelController
+<C: NewsCellCategoryProtocol>: FeedModelControllerProtocol {
+    
   typealias News = C.News
   typealias Category = C
-  typealias NewsObserver = O
   
   private let sourceProvider: SourcesProviderProtocol
   private let newsLoader: NewsLoaderProtocol
   private let rssParser: RSSParserProtocol
-  private let categoryObserver: NewsObserver
+  
+  /// Contains news that alredy viewed
+  private var showed = Set<String>()
+  
+  var onNextCategoryHandler: ((Category) -> Void)?
   
   init(sourceProvider: SourcesProviderProtocol,
        newsLoader: NewsLoaderProtocol,
-       rssParser: RSSParserProtocol,
-       categoryObserver: NewsObserver) {
+       rssParser: RSSParserProtocol) {
     
     self.sourceProvider = sourceProvider
     self.newsLoader = newsLoader
     self.rssParser = rssParser
-    self.categoryObserver = categoryObserver
   }
   
   private var _news = [NewsProtocol]()
@@ -79,7 +81,7 @@ extension FeedModelController {
       
       let sources = self.sourceProvider.getSources().filter { $0.isActive }
       guard !sources.isEmpty else {
-        self.categoryObserver.recieve(self.category)
+        self.onNextCategoryHandler?(self.category)
         completionHandler(true)
         return
       }
@@ -93,20 +95,40 @@ extension FeedModelController {
           guard let data = data,
                 let news = self.rssParser.parse(data) else {
             if self.category.news.isEmpty {
-              self.categoryObserver.recieve(self.category)
+              self.onNextCategoryHandler?(self.category)
             }
             return
           }
           
           self.news = (self.news + news).sorted(by: { $0.publishDate > $1.publishDate })
           
-          self.category.news = (self.category.news + news.map(News.init)).sorted(by: { $0.publishDate > $1.publishDate })
+          let mapped: [News] = news.map { news in
+            News.init(title: news.title, publishDate: news.publishDate, unRead: !self.showed.contains(news.title))
+          }
           
-          self.categoryObserver.recieve(self.category)
+          self.category.news = (self.category.news + mapped).sorted(by: { $0.publishDate > $1.publishDate })
+          
+          self.onNextCategoryHandler?(self.category)
         })
       }
       
       completionHandler(true)
+    }
+  }
+}
+
+// MARK: - Updating Read Status News
+extension FeedModelController {
+  
+  func setReadStatus(for index: Int, to bool: Bool) {
+    guard (0..<category.news.count) ~= index else {
+      return
+    }
+    
+    category.news[index].unRead = bool
+    
+    if bool == false {
+      showed.insert(category.news[index].title)
     }
   }
 }

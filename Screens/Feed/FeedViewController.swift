@@ -7,11 +7,13 @@
 
 import UIKit
 
-class FeedViewController: UIViewController {
+class FeedViewController
+<C: NewsCellCategoryProtocol, V: FeedReusableCellProtocol, M: FeedModelControllerProtocol>: UIViewController, UITableViewDelegate where M.Category == C {
   
-  typealias Cell = NewsCellData
-  typealias Category = NewsCellCategoryData
-  typealias ViewCell = FeedTableViewCell
+  typealias Cell = M.Category.News
+  typealias Category = M.Category
+  typealias ViewCell = V
+  typealias Model = M
   
   private var tableView: UITableView! = nil
   private var dataSource: UITableViewDiffableDataSource
@@ -19,7 +21,7 @@ class FeedViewController: UIViewController {
   private var currentSnapshot: NSDiffableDataSourceSnapshot
   <Category, Cell>! = nil
   
-  private var model: FeedModelController<Category, FeedViewController>!
+  private var model: Model!
   
   private lazy var dateFormatter: DateFormatter = {
     let formatter = DateFormatter()
@@ -29,6 +31,16 @@ class FeedViewController: UIViewController {
     
     return formatter
   }()
+  
+  init(model: Model) {
+    self.model = model
+    
+    super.init(nibName: nil, bundle: nil)
+  }
+  
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -41,11 +53,8 @@ class FeedViewController: UIViewController {
                                                         target: self,
                                                         action: #selector(showSources))
     
-    let s = SourcesProvider()
-    let n = NewsLoader()
-    let p = RSSParser<NewsData>()
     
-    model = FeedModelController(sourceProvider: s, newsLoader: n, rssParser: p, categoryObserver: self)
+    model.onNextCategoryHandler = recieve
     
     configureTableView()
     configureDataSource()
@@ -54,11 +63,15 @@ class FeedViewController: UIViewController {
     model.updateNews(completionHandler: { _ in })
   }
   
-}
-
-// MARK: Configure Refresh Control
-extension FeedViewController {
-  func configureRefreshControl () {
+  // MARK: - Presenting Sources Screen
+  @objc func showSources() {
+    let vc = SceneDelegate.container.resolve(SettingsViewController<SettingsTableViewCell>.self)!
+    
+    show(vc, sender: self)
+  }
+  
+  // MARK: Configure Refresh Control
+  private func configureRefreshControl () {
     tableView.refreshControl = UIRefreshControl()
     tableView.refreshControl?.addTarget(self, action:
                                           #selector(handleRefreshControl),
@@ -68,12 +81,24 @@ extension FeedViewController {
   @objc func handleRefreshControl() {
     model.updateNews(completionHandler: { _ in
       DispatchQueue.main.async { [unowned self] in
-        if self.currentSnapshot.numberOfItems > 0 {
-          self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
-        }
         self.tableView.refreshControl?.endRefreshing()
       }
     })
+  }
+  
+  // MARK: - Table View Delegate
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    guard let cell = tableView.cellForRow(at: indexPath) as? ActivityIndicatorProtocol else { return }
+    
+    if cell.isOn {
+      cell.toggleIndicator()
+      model.setReadStatus(for: indexPath.row, to: cell.isOn)
+    }
+    
+    let vc = SceneDelegate.container.resolve(DetailViewController.self, argument: model.news[indexPath.row])!
+    show(vc, sender: self)
+    
+    tableView.deselectRow(at: indexPath, animated: true)
   }
 }
 
@@ -124,47 +149,14 @@ extension FeedViewController {
     }
     
     currentSnapshot = NSDiffableDataSourceSnapshot
-    <Category, Cell>()
+      <Category, Cell>()
     
     dataSource.apply(currentSnapshot, animatingDifferences: false)
   }
 }
 
-// MARK: - Table View Delegate
-extension FeedViewController: UITableViewDelegate {
-  
-  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    guard let cell = tableView.cellForRow(at: indexPath) as? ActivityIndicatorProtocol else { return }
-    
-    if cell.isOn {
-      cell.toggleIndicator()
-      model.category.news[indexPath.row].unRead.toggle()
-    }
-    
-    /// CHECK IT
-    let vc = DetailViewController(news: model.news[indexPath.row])
-    show(vc, sender: self)
-    
-    tableView.deselectRow(at: indexPath, animated: true)
-  }
-}
-
-// MARK: - Presenting Sources Screen
-extension FeedViewController {
-  
-  @objc func showSources() {
-    let pc = RSSPointCreator()
-    let s = SourcesProvider()
-    let m = SettingsModelController(sourcesProvider: s)
-    
-    let vc = SettingsViewController(rssPointCreator: pc, model: m)
-    
-    show(vc, sender: self)
-  }
-}
-
 // MARK: - Update Snapshot
-extension FeedViewController: NewsObserverProtocol {
+extension FeedViewController {
   
   func recieve(_ category: Category) {
     DispatchQueue.main.async { [weak self] in

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FeedTableViewCell: UITableViewCell {
+class FeedTableViewCell: UITableViewCell, FeedReusableCellProtocol {
   
   static let reuseIdentifier = "feed-cell-reuse-identifier"
   

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SettingsTableViewCell: UITableViewCell {
+class SettingsTableViewCell: UITableViewCell, SettingsReuseCellProtocol {
   
   static let reuseIdentifier = "settings-cell-reuse-identifier"
   

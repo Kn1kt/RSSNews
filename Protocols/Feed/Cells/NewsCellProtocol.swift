@@ -30,3 +30,11 @@ extension NewsCellProtocol {
     return lhs.identifier == rhs.identifier
   }
 }
+
+extension NewsCellProtocol {
+  init(title: String, publishDate: Date, unRead: Bool = true) {
+    self.init(title: title, publishDate: publishDate)
+    
+    self.unRead = unRead
+  }
+}

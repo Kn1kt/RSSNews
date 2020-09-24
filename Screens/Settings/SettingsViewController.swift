@@ -7,10 +7,10 @@
 
 import UIKit
 
-class SettingsViewController: UIViewController {
+class SettingsViewController<V: SettingsReuseCellProtocol>: UIViewController, UITableViewDataSource, UITableViewDelegate {
   
   typealias Cell = RSSPointProtocol
-  typealias ViewCell = SettingsTableViewCell
+  typealias ViewCell = V
   
   private let rssPointCreator: RSSPointCreatorProtocol
   private var model: SettingsModelProtocol
@@ -40,36 +40,7 @@ class SettingsViewController: UIViewController {
     configureTableView()
   }
   
-}
-
-// MARK: Configure Collection View
-extension SettingsViewController {
-  
-  private func configureTableView() {
-    tableView = UITableView(frame: .zero, style: .insetGrouped)
-    
-    tableView.translatesAutoresizingMaskIntoConstraints = false
-    tableView.backgroundColor = .systemGroupedBackground
-    tableView.alwaysBounceVertical = true
-    view.addSubview(tableView)
-    
-    tableView.delegate = self
-    tableView.dataSource = self
-    
-    NSLayoutConstraint.activate([
-      tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-      tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-      tableView.topAnchor.constraint(equalTo: view.topAnchor),
-      tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-    ])
-    
-    tableView.register(ViewCell.self,
-                       forCellReuseIdentifier: ViewCell.reuseIdentifier)
-  }
-}
-
-// MARK: Table View Data Source
-extension SettingsViewController: UITableViewDataSource {
+  // MARK: Table View Data Source
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     model.rssPoints.count
   }
@@ -99,11 +70,7 @@ extension SettingsViewController: UITableViewDataSource {
     }
   }
   
-}
-
-// MARK: - Table View Delegate
-extension SettingsViewController: UITableViewDelegate {
-  
+  // MARK: - Table View Delegate
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     guard let cell = tableView.cellForRow(at: indexPath) as? ActivityIndicatorProtocol else {
       return
@@ -114,19 +81,42 @@ extension SettingsViewController: UITableViewDelegate {
     
     tableView.deselectRow(at: indexPath, animated: true)
   }
-}
-
-// MARK: - Create New RSS Point
-extension SettingsViewController {
   
+  // MARK: - Create New RSS Point
   @objc func createRSSPoint() {
     rssPointCreator.getRSSPoint(for: self, completionHandler: { [weak self] rssPoint in
       guard let self = self,
             let rssPoint = rssPoint else { return }
       
-        let indexPath = IndexPath(row: self.model.rssPoints.count, section: 0)
-        self.model.add(rssPoint)
-        self.tableView.insertRows(at: [indexPath], with: .automatic)
+      let indexPath = IndexPath(row: self.model.rssPoints.count, section: 0)
+      self.model.add(rssPoint)
+      self.tableView.insertRows(at: [indexPath], with: .automatic)
     })
+  }
+}
+
+// MARK: Configure Collection View
+extension SettingsViewController {
+  
+  private func configureTableView() {
+    tableView = UITableView(frame: .zero, style: .insetGrouped)
+    
+    tableView.translatesAutoresizingMaskIntoConstraints = false
+    tableView.backgroundColor = .systemGroupedBackground
+    tableView.alwaysBounceVertical = true
+    view.addSubview(tableView)
+    
+    tableView.delegate = self
+    tableView.dataSource = self
+    
+    NSLayoutConstraint.activate([
+      tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+      tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+      tableView.topAnchor.constraint(equalTo: view.topAnchor),
+      tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+    ])
+    
+    tableView.register(ViewCell.self,
+                       forCellReuseIdentifier: ViewCell.reuseIdentifier)
   }
 }

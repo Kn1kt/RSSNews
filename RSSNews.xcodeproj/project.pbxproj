@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -26,7 +26,10 @@
 		F380225B251BD25300AA24EC /* RSSParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = F380225A251BD25300AA24EC /* RSSParser.swift */; };
 		F3802263251BD29600AA24EC /* RSSParserProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3802262251BD29600AA24EC /* RSSParserProtocol.swift */; };
 		F3802268251BD37900AA24EC /* NewsLoaderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3802267251BD37900AA24EC /* NewsLoaderProtocol.swift */; };
-		F3802270251BFFBA00AA24EC /* NewsObserverProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F380226F251BFFBA00AA24EC /* NewsObserverProtocol.swift */; };
+		F3802284251CC7CC00AA24EC /* FeedReusableCellProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3802283251CC7CC00AA24EC /* FeedReusableCellProtocol.swift */; };
+		F380228A251CCBFE00AA24EC /* FeedModelControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3802289251CCBFE00AA24EC /* FeedModelControllerProtocol.swift */; };
+		F3802298251CE8C100AA24EC /* SettingsReuseCellProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3802297251CE8C100AA24EC /* SettingsReuseCellProtocol.swift */; };
+		F380229E251D18BF00AA24EC /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = F380229D251D18BF00AA24EC /* Swinject */; };
 		F3CB027A251A24A200505DFE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3CB0279251A24A200505DFE /* AppDelegate.swift */; };
 		F3CB027C251A24A200505DFE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3CB027B251A24A200505DFE /* SceneDelegate.swift */; };
 		F3CB027E251A24A200505DFE /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3CB027D251A24A200505DFE /* FeedViewController.swift */; };
@@ -80,7 +83,9 @@
 		F380225A251BD25300AA24EC /* RSSParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSParser.swift; sourceTree = "<group>"; };
 		F3802262251BD29600AA24EC /* RSSParserProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSParserProtocol.swift; sourceTree = "<group>"; };
 		F3802267251BD37900AA24EC /* NewsLoaderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsLoaderProtocol.swift; sourceTree = "<group>"; };
-		F380226F251BFFBA00AA24EC /* NewsObserverProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsObserverProtocol.swift; sourceTree = "<group>"; };
+		F3802283251CC7CC00AA24EC /* FeedReusableCellProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedReusableCellProtocol.swift; sourceTree = "<group>"; };
+		F3802289251CCBFE00AA24EC /* FeedModelControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedModelControllerProtocol.swift; sourceTree = "<group>"; };
+		F3802297251CE8C100AA24EC /* SettingsReuseCellProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsReuseCellProtocol.swift; sourceTree = "<group>"; };
 		F3CB0276251A24A200505DFE /* RSSNews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RSSNews.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3CB0279251A24A200505DFE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F3CB027B251A24A200505DFE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -108,6 +113,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F380229E251D18BF00AA24EC /* Swinject in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -132,6 +138,7 @@
 			isa = PBXGroup;
 			children = (
 				F38021DA251A854300AA24EC /* ActivityIndicatorProtocol.swift */,
+				F3802283251CC7CC00AA24EC /* FeedReusableCellProtocol.swift */,
 			);
 			path = ViewCells;
 			sourceTree = "<group>";
@@ -149,9 +156,7 @@
 		F3802208251AA6E100AA24EC /* Feed */ = {
 			isa = PBXGroup;
 			children = (
-				F380226F251BFFBA00AA24EC /* NewsObserverProtocol.swift */,
-				F3CB02C1251A287C00505DFE /* NewsCategoryProtocol.swift */,
-				F3CB02B9251A281900505DFE /* NewsProtocol.swift */,
+				F3802289251CCBFE00AA24EC /* FeedModelControllerProtocol.swift */,
 				F3CB02C9251A2B6600505DFE /* Cells */,
 				F38021D9251A851900AA24EC /* ViewCells */,
 			);
@@ -161,9 +166,9 @@
 		F3802209251AA70D00AA24EC /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				F380220A251AA72E00AA24EC /* RSSPointProtocol.swift */,
 				F380222B251B8E4D00AA24EC /* RSSPointCreatorProtocol.swift */,
 				F3802235251BAFEB00AA24EC /* SettingsModelProtocol.swift */,
+				F3802297251CE8C100AA24EC /* SettingsReuseCellProtocol.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -191,6 +196,16 @@
 				F380221D251AA91200AA24EC /* SettingsTableViewCell.swift */,
 			);
 			path = Settings;
+			sourceTree = "<group>";
+		};
+		F3802288251CCBB600AA24EC /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				F3CB02C1251A287C00505DFE /* NewsCategoryProtocol.swift */,
+				F3CB02B9251A281900505DFE /* NewsProtocol.swift */,
+				F380220A251AA72E00AA24EC /* RSSPointProtocol.swift */,
+			);
+			path = Data;
 			sourceTree = "<group>";
 		};
 		F3CB026D251A24A200505DFE = {
@@ -288,6 +303,7 @@
 		F3CB02B8251A27DC00505DFE /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				F3802288251CCBB600AA24EC /* Data */,
 				F3802209251AA70D00AA24EC /* Settings */,
 				F3802208251AA6E100AA24EC /* Feed */,
 				F380223F251BC99D00AA24EC /* SourcesProviderProtocol.swift */,
@@ -309,9 +325,9 @@
 		F3CB02DD251A321900505DFE /* Feed */ = {
 			isa = PBXGroup;
 			children = (
+				F380224F251BCF3F00AA24EC /* FeedModelController.swift */,
 				F3CB027D251A24A200505DFE /* FeedViewController.swift */,
 				F38021E2251A8B7E00AA24EC /* DetailViewController.swift */,
-				F380224F251BCF3F00AA24EC /* FeedModelController.swift */,
 			);
 			path = Feed;
 			sourceTree = "<group>";
@@ -358,6 +374,9 @@
 			dependencies = (
 			);
 			name = RSSNews;
+			packageProductDependencies = (
+				F380229D251D18BF00AA24EC /* Swinject */,
+			);
 			productName = RSSNews;
 			productReference = F3CB0276251A24A200505DFE /* RSSNews.app */;
 			productType = "com.apple.product-type.application";
@@ -429,6 +448,9 @@
 				Base,
 			);
 			mainGroup = F3CB026D251A24A200505DFE;
+			packageReferences = (
+				F380229C251D18BF00AA24EC /* XCRemoteSwiftPackageReference "Swinject" */,
+			);
 			productRefGroup = F3CB0277251A24A200505DFE /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -471,10 +493,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F3802270251BFFBA00AA24EC /* NewsObserverProtocol.swift in Sources */,
+				F3802284251CC7CC00AA24EC /* FeedReusableCellProtocol.swift in Sources */,
+				F3802298251CE8C100AA24EC /* SettingsReuseCellProtocol.swift in Sources */,
 				F3CB02E1251A327D00505DFE /* NewsCellData.swift in Sources */,
 				F3CB02C2251A287C00505DFE /* NewsCategoryProtocol.swift in Sources */,
 				F380223B251BC97E00AA24EC /* NewsLoader.swift in Sources */,
+				F380228A251CCBFE00AA24EC /* FeedModelControllerProtocol.swift in Sources */,
 				F380221E251AA91200AA24EC /* SettingsTableViewCell.swift in Sources */,
 				F3802250251BCF3F00AA24EC /* FeedModelController.swift in Sources */,
 				F38021DB251A854300AA24EC /* ActivityIndicatorProtocol.swift in Sources */,
@@ -827,6 +851,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		F380229C251D18BF00AA24EC /* XCRemoteSwiftPackageReference "Swinject" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Swinject/Swinject";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.7.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		F380229D251D18BF00AA24EC /* Swinject */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F380229C251D18BF00AA24EC /* XCRemoteSwiftPackageReference "Swinject" */;
+			productName = Swinject;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = F3CB026E251A24A200505DFE /* Project object */;
 }

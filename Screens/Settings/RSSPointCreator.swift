@@ -15,6 +15,17 @@ class RSSPointCreator: NSObject, RSSPointCreatorProtocol {
   func getRSSPoint(for recievier: UIViewController, completionHandler: @escaping (RSSPointProtocol?) -> Void) {
     showTextEntryAlert(for: recievier, completionHandler: completionHandler)
   }
+  
+  private func checkForValidURL(of string: String) -> Bool {
+    let detector = try! NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
+    let utf16Count = string.utf16.count
+    
+    if let match = detector.firstMatch(in: string, options: [], range: NSRange(location: 0, length: utf16Count)) {
+      return match.range.length == utf16Count
+    } else {
+      return false
+    }
+  }
 }
 
 // MARK: Alert for Getting RSS Point
@@ -22,7 +33,7 @@ extension RSSPointCreator {
   
   private func showTextEntryAlert(for recievier: UIViewController, completionHandler: @escaping (RSSPointProtocol?) -> Void) {
     let title = "Adding New RSS Point"
-    let message = "Just type URL for your RSS Point."
+    let message = "Just type url for your rss point."
     let cancelButtonTitle = "Cancel"
     let otherButtonTitle = "Add"
     
@@ -73,7 +84,9 @@ extension RSSPointCreator: UITextFieldDelegate {
     let updatedText = text.replacingCharacters(in: textRange, with: string)
     
     if let link = updatedText.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
-      let url = URL(string: link) {
+       checkForValidURL(of: link),
+       let url = URL(string: link) {
+      
       doneAction?.isEnabled = true
       rssPointURL = url
       

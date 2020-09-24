@@ -30,7 +30,7 @@ class FeedModelController<C: NewsCellCategoryProtocol, O: NewsObserverProtocol> 
   }
   
   private var _news = [NewsProtocol]()
-  private let newsQueue = DispatchQueue(label: "newsQueue", attributes: .concurrent)
+  private let newsQueue = DispatchQueue(label: "NewsQueue", attributes: .concurrent)
   
   private(set) var news: [NewsProtocol] {
     get {
@@ -62,7 +62,6 @@ class FeedModelController<C: NewsCellCategoryProtocol, O: NewsObserverProtocol> 
       }
     }
   }
-  
 }
 
 // MARK: - Updating News
@@ -98,7 +97,6 @@ extension FeedModelController {
             }
             return
           }
-          
           
           self.news = (self.news + news).sorted(by: { $0.publishDate > $1.publishDate })
           

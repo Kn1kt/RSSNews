@@ -30,8 +30,7 @@ class SettingsModelController: SettingsModelProtocol {
   }
   
   func remove(at index: Int) {
-    guard index >= 0,
-          index < rssPoints.count else {
+    guard (0..<rssPoints.count) ~= index else {
       return
     }
     
@@ -41,8 +40,7 @@ class SettingsModelController: SettingsModelProtocol {
   }
   
   func setIsActive(_ isActive: Bool, for index: Int) {
-    guard index >= 0,
-          index < rssPoints.count else {
+    guard (0..<rssPoints.count) ~= index else {
       return
     }
     

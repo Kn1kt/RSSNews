@@ -49,11 +49,14 @@ class SettingsViewController<V: SettingsReuseCellProtocol>: UIViewController, UI
     guard let cell = tableView.dequeueReusableCell(withIdentifier: ViewCell.reuseIdentifier, for: indexPath) as? ViewCell else {
       fatalError("Can't create new cell")
     }
+    
     let cellData = model.rssPoints[indexPath.row]
+    
     cell.titleLabel.text = cellData.url
       .absoluteString
       .removingPercentEncoding?
       .trimmingCharacters(in: .whitespacesAndNewlines)
+    
     cell.setIndicator(cellData.isActive)
     
     return cell

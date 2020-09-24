@@ -8,7 +8,7 @@
 import UIKit
 
 class FeedViewController
-<C: NewsCellCategoryProtocol, V: FeedReusableCellProtocol, M: FeedModelControllerProtocol>: UIViewController, UITableViewDelegate where M.Category == C {
+  <C: NewsCellCategoryProtocol, V: FeedReusableCellProtocol, M: FeedModelControllerProtocol>: UIViewController, UITableViewDelegate where M.Category == C {
   
   typealias Cell = M.Category.News
   typealias Category = M.Category
@@ -17,9 +17,9 @@ class FeedViewController
   
   private var tableView: UITableView! = nil
   private var dataSource: UITableViewDiffableDataSource
-  <Category, Cell>! = nil
+    <Category, Cell>! = nil
   private var currentSnapshot: NSDiffableDataSourceSnapshot
-  <Category, Cell>! = nil
+    <Category, Cell>! = nil
   
   private var model: Model!
   
@@ -53,19 +53,17 @@ class FeedViewController
                                                         target: self,
                                                         action: #selector(showSources))
     
-    
-    model.onNextCategoryHandler = recieve
-    
     configureTableView()
     configureDataSource()
     configureRefreshControl()
     
+    model.onNextCategoryHandler = recieve
     model.updateNews(completionHandler: { _ in })
   }
   
   // MARK: - Presenting Sources Screen
   @objc func showSources() {
-    let vc = SceneDelegate.container.resolve(SettingsViewController<SettingsTableViewCell>.self)!
+    let vc = DI.container.resolve(SettingsViewController<SettingsTableViewCell>.self)!
     
     show(vc, sender: self)
   }
@@ -73,8 +71,8 @@ class FeedViewController
   // MARK: Configure Refresh Control
   private func configureRefreshControl () {
     tableView.refreshControl = UIRefreshControl()
-    tableView.refreshControl?.addTarget(self, action:
-                                          #selector(handleRefreshControl),
+    tableView.refreshControl?.addTarget(self,
+                                        action: #selector(handleRefreshControl),
                                         for: .valueChanged)
   }
   
@@ -95,7 +93,7 @@ class FeedViewController
       model.setReadStatus(for: indexPath.row, to: cell.isOn)
     }
     
-    let vc = SceneDelegate.container.resolve(DetailViewController.self, argument: model.news[indexPath.row])!
+    let vc = DI.container.resolve(DetailViewController.self, argument: model.news[indexPath.row])!
     show(vc, sender: self)
     
     tableView.deselectRow(at: indexPath, animated: true)

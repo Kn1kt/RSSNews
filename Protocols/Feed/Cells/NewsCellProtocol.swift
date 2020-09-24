@@ -32,6 +32,7 @@ extension NewsCellProtocol {
 }
 
 extension NewsCellProtocol {
+  
   init(title: String, publishDate: Date, unRead: Bool = true) {
     self.init(title: title, publishDate: publishDate)
     

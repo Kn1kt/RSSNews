@@ -30,6 +30,7 @@
 		F380228A251CCBFE00AA24EC /* FeedModelControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3802289251CCBFE00AA24EC /* FeedModelControllerProtocol.swift */; };
 		F3802298251CE8C100AA24EC /* SettingsReuseCellProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3802297251CE8C100AA24EC /* SettingsReuseCellProtocol.swift */; };
 		F380229E251D18BF00AA24EC /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = F380229D251D18BF00AA24EC /* Swinject */; };
+		F38022A3251D259500AA24EC /* DI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38022A2251D259500AA24EC /* DI.swift */; };
 		F3CB027A251A24A200505DFE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3CB0279251A24A200505DFE /* AppDelegate.swift */; };
 		F3CB027C251A24A200505DFE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3CB027B251A24A200505DFE /* SceneDelegate.swift */; };
 		F3CB027E251A24A200505DFE /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3CB027D251A24A200505DFE /* FeedViewController.swift */; };
@@ -86,6 +87,7 @@
 		F3802283251CC7CC00AA24EC /* FeedReusableCellProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedReusableCellProtocol.swift; sourceTree = "<group>"; };
 		F3802289251CCBFE00AA24EC /* FeedModelControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedModelControllerProtocol.swift; sourceTree = "<group>"; };
 		F3802297251CE8C100AA24EC /* SettingsReuseCellProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsReuseCellProtocol.swift; sourceTree = "<group>"; };
+		F38022A2251D259500AA24EC /* DI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DI.swift; sourceTree = "<group>"; };
 		F3CB0276251A24A200505DFE /* RSSNews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RSSNews.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3CB0279251A24A200505DFE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F3CB027B251A24A200505DFE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -147,8 +149,8 @@
 			isa = PBXGroup;
 			children = (
 				F38021F8251A9AD800AA24EC /* SettingsViewController.swift */,
-				F3802226251B8E3000AA24EC /* RSSPointCreator.swift */,
 				F3802230251BAF9800AA24EC /* SettingsModelController.swift */,
+				F3802226251B8E3000AA24EC /* RSSPointCreator.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -238,6 +240,7 @@
 			children = (
 				F3CB0279251A24A200505DFE /* AppDelegate.swift */,
 				F3CB027B251A24A200505DFE /* SceneDelegate.swift */,
+				F38022A2251D259500AA24EC /* DI.swift */,
 				F3CB0287251A24A500505DFE /* Info.plist */,
 			);
 			path = RSSNews;
@@ -519,6 +522,7 @@
 				F3802227251B8E3000AA24EC /* RSSPointCreator.swift in Sources */,
 				F38021EB251A907500AA24EC /* NewsData.swift in Sources */,
 				F380222C251B8E4D00AA24EC /* RSSPointCreatorProtocol.swift in Sources */,
+				F38022A3251D259500AA24EC /* DI.swift in Sources */,
 				F3CB02BA251A281900505DFE /* NewsProtocol.swift in Sources */,
 				F38021F3251A908600AA24EC /* NewsCategoryData.swift in Sources */,
 				F3802263251BD29600AA24EC /* RSSParserProtocol.swift in Sources */,

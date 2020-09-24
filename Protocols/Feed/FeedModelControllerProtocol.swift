@@ -12,10 +12,9 @@ protocol FeedModelControllerProtocol {
   associatedtype Category = NewsCellCategoryProtocol
   
   var news: [NewsProtocol] { get }
+  
   var category: Category { get }
-  
-//  var categoryObserver: NewsObserverProtocol? { get set }
-  
+    
   var onNextCategoryHandler: ((_ category: Category) -> Void)? { get set }
   
   func updateNews(completionHandler: @escaping (_ done: Bool) -> Void)

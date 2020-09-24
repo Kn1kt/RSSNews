@@ -45,7 +45,11 @@ class RSSParser<News: NewsProtocol>: NSObject, XMLParserDelegate, RSSParserProto
   }
   
   // MARK: - XML Parser Delegate
-  func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
+  func parser(_ parser: XMLParser,
+              didStartElement elementName: String,
+              namespaceURI: String?,
+              qualifiedName qName: String?,
+              attributes attributeDict: [String : String] = [:]) {
     
     currentElement = elementName
     
@@ -67,7 +71,10 @@ class RSSParser<News: NewsProtocol>: NSObject, XMLParserDelegate, RSSParserProto
     }
   }
   
-  func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
+  func parser(_ parser: XMLParser,
+              didEndElement elementName: String,
+              namespaceURI: String?,
+              qualifiedName qName: String?) {
     if elementName == "item" {
       guard let url = URL(string: currentLink),
             let date = formatter.date(from: currentPubDate) else {
@@ -91,9 +98,7 @@ extension RSSParser {
     parser.delegate = self
     parser.parse()
     
-    defer {
-      news = []
-    }
+    defer { news = [] }
     
     return news
   }

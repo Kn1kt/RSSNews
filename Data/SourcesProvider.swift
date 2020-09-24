@@ -22,6 +22,7 @@ class SourcesProvider: SourcesProviderProtocol {
         "https://www.finam.ru/net/analysis/conews/rsspoint" : true,
         "https://www.banki.ru/xml/news.rss" : true,
       ]
+      
       UserDefaults.standard.set(defaultSources, forKey: Self.usersDefaultsKey)
       
       points = defaultSources

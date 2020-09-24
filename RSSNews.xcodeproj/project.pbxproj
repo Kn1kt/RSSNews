@@ -29,7 +29,7 @@
 		F3802270251BFFBA00AA24EC /* NewsObserverProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F380226F251BFFBA00AA24EC /* NewsObserverProtocol.swift */; };
 		F3CB027A251A24A200505DFE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3CB0279251A24A200505DFE /* AppDelegate.swift */; };
 		F3CB027C251A24A200505DFE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3CB027B251A24A200505DFE /* SceneDelegate.swift */; };
-		F3CB027E251A24A200505DFE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3CB027D251A24A200505DFE /* ViewController.swift */; };
+		F3CB027E251A24A200505DFE /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3CB027D251A24A200505DFE /* FeedViewController.swift */; };
 		F3CB0281251A24A200505DFE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F3CB027F251A24A200505DFE /* Main.storyboard */; };
 		F3CB0283251A24A500505DFE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3CB0282251A24A500505DFE /* Assets.xcassets */; };
 		F3CB0286251A24A500505DFE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F3CB0284251A24A500505DFE /* LaunchScreen.storyboard */; };
@@ -85,7 +85,7 @@
 		F3CB0276251A24A200505DFE /* RSSNews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RSSNews.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3CB0279251A24A200505DFE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F3CB027B251A24A200505DFE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		F3CB027D251A24A200505DFE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		F3CB027D251A24A200505DFE /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		F3CB0280251A24A200505DFE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F3CB0282251A24A500505DFE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F3CB0285251A24A500505DFE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -312,7 +312,7 @@
 		F3CB02DD251A321900505DFE /* Feed */ = {
 			isa = PBXGroup;
 			children = (
-				F3CB027D251A24A200505DFE /* ViewController.swift */,
+				F3CB027D251A24A200505DFE /* FeedViewController.swift */,
 				F38021E2251A8B7E00AA24EC /* DetailViewController.swift */,
 				F380224F251BCF3F00AA24EC /* FeedModelController.swift */,
 			);
@@ -488,7 +488,7 @@
 				F380220B251AA72E00AA24EC /* RSSPointProtocol.swift in Sources */,
 				F380225B251BD25300AA24EC /* RSSParser.swift in Sources */,
 				F3802231251BAF9800AA24EC /* SettingsModelController.swift in Sources */,
-				F3CB027E251A24A200505DFE /* ViewController.swift in Sources */,
+				F3CB027E251A24A200505DFE /* FeedViewController.swift in Sources */,
 				F3CB027A251A24A200505DFE /* AppDelegate.swift in Sources */,
 				F3CB027C251A24A200505DFE /* SceneDelegate.swift in Sources */,
 				F38021F9251A9AD800AA24EC /* SettingsViewController.swift in Sources */,

@@ -29,10 +29,40 @@ class FeedModelController<C: NewsCellCategoryProtocol, O: NewsObserverProtocol> 
     self.categoryObserver = categoryObserver
   }
   
-  private(set) var news = [NewsProtocol]()
+  private var _news = [NewsProtocol]()
+  private let newsQueue = DispatchQueue(label: "newsQueue", attributes: .concurrent)
   
-  private let queue = DispatchQueue(label: "CategoryQueue", qos: .default)
-  var category = Category(news: [])
+  private(set) var news: [NewsProtocol] {
+    get {
+      newsQueue.sync {
+        return _news
+      }
+    }
+    
+    set {
+      newsQueue.async(flags: .barrier) { [unowned self] in
+        self._news = newValue
+      }
+    }
+  }
+  
+  private var _category = Category(news: [])
+  private let categoryQueue = DispatchQueue(label: "CategoryQueue", attributes: .concurrent)
+  
+  private(set) var category: Category {
+    get {
+      categoryQueue.sync {
+        return _category
+      }
+    }
+    
+    set {
+      categoryQueue.async(flags: .barrier) { [unowned self] in
+        self._category = newValue
+      }
+    }
+  }
+  
 }
 
 // MARK: - Updating News
@@ -55,27 +85,28 @@ extension FeedModelController {
         return
       }
       
-      sources
-        .forEach { source in
-          self.newsLoader.loadNews(from: source, completionHandler: { data in
-            guard let data = data else { return }
-            
-            self.rssParser.parse(data, completionHandler: { news in
-              
-              guard let news = news else { return }
-              self.queue.async {
-                
-                self.news += news
-                self.news.sort(by: { $0.publishDate > $1.publishDate })
-                
-                self.category.news += news.map(News.init)
-                self.category.news.sort(by: { $0.publishDate > $1.publishDate })
-                self.categoryObserver.recieve(self.category)
-              }
-              
-            })
-          })
-        }
+      sources.forEach { source in
+        self.newsLoader.loadNews(from: source, completionHandler: { [weak self] data in
+          guard let self = self else {
+            return
+          }
+          
+          guard let data = data,
+                let news = self.rssParser.parse(data) else {
+            if self.category.news.isEmpty {
+              self.categoryObserver.recieve(self.category)
+            }
+            return
+          }
+          
+          
+          self.news = (self.news + news).sorted(by: { $0.publishDate > $1.publishDate })
+          
+          self.category.news = (self.category.news + news.map(News.init)).sorted(by: { $0.publishDate > $1.publishDate })
+          
+          self.categoryObserver.recieve(self.category)
+        })
+      }
       
       completionHandler(true)
     }

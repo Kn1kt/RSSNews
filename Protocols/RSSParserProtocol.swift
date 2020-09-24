@@ -9,5 +9,5 @@ import Foundation
 
 protocol RSSParserProtocol {
   
-  func parse(_ data: Data, completionHandler: (_ result: [NewsProtocol]?) -> Void)
+  func parse(_ data: Data) -> [NewsProtocol]?
 }

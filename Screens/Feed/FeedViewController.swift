@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  FeedViewController.swift
 //  RSSNews
 //
 //  Created by Nikita Konashenko on 22.09.2020.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class FeedViewController: UIViewController {
   
   typealias Cell = NewsCellData
   typealias Category = NewsCellCategoryData
@@ -19,7 +19,7 @@ class ViewController: UIViewController {
   private var currentSnapshot: NSDiffableDataSourceSnapshot
   <Category, Cell>! = nil
   
-  private var model: FeedModelController<Category, ViewController>!
+  private var model: FeedModelController<Category, FeedViewController>!
   
   private lazy var dateFormatter: DateFormatter = {
     let formatter = DateFormatter()
@@ -57,7 +57,7 @@ class ViewController: UIViewController {
 }
 
 // MARK: Configure Refresh Control
-extension ViewController {
+extension FeedViewController {
   func configureRefreshControl () {
     tableView.refreshControl = UIRefreshControl()
     tableView.refreshControl?.addTarget(self, action:
@@ -78,7 +78,7 @@ extension ViewController {
 }
 
 // MARK: Configure Collection View
-extension ViewController {
+extension FeedViewController {
   
   private func configureTableView() {
     tableView = UITableView(frame: .zero, style: .plain)
@@ -103,7 +103,7 @@ extension ViewController {
 }
 
 // MARK: Configure Data Source
-extension ViewController {
+extension FeedViewController {
   
   private func configureDataSource() {
     dataSource = UITableViewDiffableDataSource
@@ -131,7 +131,7 @@ extension ViewController {
 }
 
 // MARK: - Table View Delegate
-extension ViewController: UITableViewDelegate {
+extension FeedViewController: UITableViewDelegate {
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     guard let cell = tableView.cellForRow(at: indexPath) as? ActivityIndicatorProtocol else { return }
@@ -150,7 +150,7 @@ extension ViewController: UITableViewDelegate {
 }
 
 // MARK: - Presenting Sources Screen
-extension ViewController {
+extension FeedViewController {
   
   @objc func showSources() {
     let pc = RSSPointCreator()
@@ -164,7 +164,7 @@ extension ViewController {
 }
 
 // MARK: - Update Snapshot
-extension ViewController: NewsObserverProtocol {
+extension FeedViewController: NewsObserverProtocol {
   
   func recieve(_ category: Category) {
     DispatchQueue.main.async { [weak self] in

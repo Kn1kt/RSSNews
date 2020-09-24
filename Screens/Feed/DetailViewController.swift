@@ -62,9 +62,11 @@ extension DetailViewController {
     
     view.addSubview(textView)
     
+    view.backgroundColor = .systemBackground
+    
     NSLayoutConstraint.activate([
-      textView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-      textView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+      textView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+      textView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
       textView.topAnchor.constraint(equalTo: view.topAnchor),
       textView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
     ])

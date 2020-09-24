@@ -79,7 +79,10 @@ extension SettingsViewController: UITableViewDataSource {
       fatalError("Can't create new cell")
     }
     let cellData = model.rssPoints[indexPath.row]
-    cell.titleLabel.text = cellData.url.absoluteString
+    cell.titleLabel.text = cellData.url
+      .absoluteString
+      .removingPercentEncoding?
+      .trimmingCharacters(in: .whitespacesAndNewlines)
     cell.setIndicator(cellData.isActive)
     
     return cell

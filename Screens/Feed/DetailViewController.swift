@@ -50,6 +50,7 @@ class DetailViewController: UIViewController {
     
     setupLayouts()
     reflowTextAttributes()
+    textView.contentOffset = .zero
   }
 }
 

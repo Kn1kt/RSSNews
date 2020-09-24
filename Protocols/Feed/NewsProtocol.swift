@@ -13,4 +13,6 @@ protocol NewsProtocol {
   var publishDate: Date { get }
   
   var link: URL { get }
+  
+  init(title: String, content: String, publishDate: Date, link: URL)
 }

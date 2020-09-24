@@ -12,7 +12,12 @@ protocol NewsCellProtocol: Hashable {
   var title: String { get }
   var publishDate: Date { get }
   
+  var unRead: Bool { get set }
+  
   var identifier: UUID { get }
+  
+  init(title: String, publishDate: Date)
+  init(_ news: NewsProtocol)
 }
 
 extension NewsCellProtocol {

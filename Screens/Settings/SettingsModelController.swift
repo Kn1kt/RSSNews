@@ -7,45 +7,29 @@
 
 import Foundation
 
-struct SettingsModelController: SettingsModelProtocol {
-  
-  static let usersDefaultsKey = "RSSPoints-Key"
+class SettingsModelController: SettingsModelProtocol {
   
   private(set) var rssPoints: [RSSPointProtocol]
+  private let sourcesProvider: SourcesProviderProtocol
   
-  init(rssPoints: [RSSPointProtocol]) {
-//    guard let rssPoints = UserDefaults.standard.object(forKey: Self.usersDefaultsKey) as? [String : Bool] else {
-//      let defaultSources = [
-//        "https://www.finam.ru/net/analysis/conews/rsspoint" : true,
-//        "https://www.banki.ru/xml/news.rss" : true,
-//      ]
-//      UserDefaults.standard.set(defaultSources, forKey: Self.usersDefaultsKey)
-//
-//      self.rssPoints = defaultSources.compactMap { link, isActive in
-//        if let url = URL(string: link) {
-//          return RSSPointProtocol(url: url, isActive: isActive)
-//        }
-//
-//        return nil
-//      }
-//    }
-    
-    self.rssPoints = rssPoints
+  init(sourcesProvider: SourcesProviderProtocol) {
+    self.sourcesProvider = sourcesProvider
+    self.rssPoints = sourcesProvider.getSources()
   }
   
-  mutating func add(_ point: RSSPointProtocol) {
+  func add(_ point: RSSPointProtocol) {
     rssPoints.append(point)
     
     saveChanges()
   }
   
-  mutating func remove(_ point: RSSPointProtocol) {
+  func remove(_ point: RSSPointProtocol) {
     if let index = rssPoints.firstIndex(where: { $0.url == point.url }) {
       remove(at: index)
     }
   }
   
-  mutating func remove(at index: Int) {
+  func remove(at index: Int) {
     guard index >= 0,
           index < rssPoints.count else {
       return
@@ -56,7 +40,7 @@ struct SettingsModelController: SettingsModelProtocol {
     saveChanges()
   }
   
-  mutating func setIsActive(_ isActive: Bool, for index: Int) {
+  func setIsActive(_ isActive: Bool, for index: Int) {
     guard index >= 0,
           index < rssPoints.count else {
       return
@@ -68,10 +52,6 @@ struct SettingsModelController: SettingsModelProtocol {
   }
   
   private func saveChanges() {
-    let data = rssPoints.reduce(into: [:]) { result, point in
-      result[point.url.absoluteString] = point.isActive
-    }
-    
-    UserDefaults.standard.set(data, forKey: Self.usersDefaultsKey)
+    sourcesProvider.updateSources(newData: rssPoints)
   }
 }

@@ -7,12 +7,11 @@
 
 import Foundation
 
-struct NewsCategoryData: NewsCategoryProtocol {
-  let channelTitle: String
-  
-  let channelContent: String
-  
-  let link: URL
-  
+class NewsCategoryData: NewsCategoryProtocol {
+    
   let news: [NewsProtocol]
+  
+  required init(news: [NewsProtocol]) {
+    self.news = news
+  }
 }

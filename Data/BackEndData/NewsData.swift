@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct NewsData: NewsProtocol {
+class NewsData: NewsProtocol {
   
   let title: String
   
@@ -16,4 +16,19 @@ struct NewsData: NewsProtocol {
   let publishDate: Date
   
   let link: URL
+  
+  required init(title: String, content: String, publishDate: Date, link: URL) {
+    self.title = title
+    self.content = content
+    self.publishDate = publishDate
+    self.link = link
+  }
+}
+
+extension NewsData: CustomStringConvertible {
+  var description: String {
+//    "\n\nTITLE: \(title)\nCONTENT: \(content)\nDATE: \(publishDate)\nLINK \(link)"
+    "TITLE: \(title)"
+
+  }
 }

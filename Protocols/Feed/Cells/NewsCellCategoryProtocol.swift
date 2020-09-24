@@ -11,11 +11,13 @@ protocol NewsCellCategoryProtocol: Hashable {
   
   associatedtype News: NewsCellProtocol
   
-  var channelTitle: String { get }
-  
   var news: [News] { get set }
   
   var identifier: UUID { get }
+  
+  init(news: [News])
+  
+  init(_ category: NewsCategoryProtocol)
 }
 
 extension NewsCellCategoryProtocol {

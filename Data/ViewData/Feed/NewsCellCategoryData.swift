@@ -7,21 +7,24 @@
 
 import Foundation
 
-struct NewsCellCategoryData: NewsCellCategoryProtocol {
-  typealias News = NewsCellData
+final class NewsCellCategoryData: NewsCellCategoryProtocol {
   
-  let channelTitle: String
+  typealias News = NewsCellData
   
   var news: [NewsCellData]
   
   let identifier = UUID()
+  
+  required init(news: [NewsCellData]) {
+    self.news = news
+  }
 }
 
 // MARK: - Bridge from NewsCategoryProtocol
 extension NewsCellCategoryData {
   
-  init(_ category: NewsCategoryProtocol) {
-    self.init(channelTitle: category.channelTitle,
-              news: category.news.map(News.init))
+  convenience init(_ category: NewsCategoryProtocol) {
+    self.init(
+    news: category.news.map(News.init))
   }
 }

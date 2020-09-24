@@ -7,8 +7,14 @@
 
 import Foundation
 
-struct RSSPointCellData: RSSPointProtocol {
+class RSSPointCellData: RSSPointProtocol {
+  
   let url: URL
   
   var isActive: Bool
+  
+  required init(url: URL, isActive: Bool) {
+    self.url = url
+    self.isActive = isActive
+  }
 }
